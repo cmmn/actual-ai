@@ -1,6 +1,6 @@
 'use client'
 
-import { Text, ScrollView, YStack, View } from 'tamagui'
+import { Text, ScrollView, View } from 'tamagui'
 import { useEffect, useRef } from 'react'
 
 interface StreamProps {

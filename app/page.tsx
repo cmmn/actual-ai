@@ -20,6 +20,7 @@ export default function Home() {
           setIsAvailable(true)
         }
       } catch (error) {
+        console.error('Error checking app availability:', error)
         // If we can't check status, assume unavailable
         setIsAvailable(false)
       }

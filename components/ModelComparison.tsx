@@ -1,7 +1,7 @@
 'use client'
 
-import { YStack, XStack, Text, H1, Button, useMedia } from 'tamagui'
-import { useState, useEffect } from 'react'
+import { YStack, XStack, Text, H1, Button } from 'tamagui'
+import { useState } from 'react'
 import { Completion } from './Completion'
 import { Stream } from './Stream'
 import { Metrics } from './Metrics'
@@ -56,7 +56,6 @@ interface ModelComparisonProps {
 }
 
 export function ModelComparison({ selectedModels, isAvailable, onUnavailable, onBack }: ModelComparisonProps) {
-  const media = useMedia()
   const allModelKeys = Object.keys(modelConfigs) as ModelKey[]
 
   const [responses, setResponses] = useState<Record<ModelKey, string>>(
@@ -72,10 +71,11 @@ export function ModelComparison({ selectedModels, isAvailable, onUnavailable, on
     Object.fromEntries(allModelKeys.map(key => [key, { cost: null, timeToFirstToken: null, totalTime: null, tokenCount: null }])) as Record<ModelKey, MetricsData>
   )
   const [currentUseCase, setCurrentUseCase] = useState<string>('mcqs-multiplication-10')
+  console.log({ setCurrentUseCase})
 
   // Track if any model is currently streaming
   const anyStreaming = selectedModels.some(model => streaming[model])
-  const allCompleted = selectedModels.every(model => responses[model] || errors[model])
+  // const allCompleted = selectedModels.every(model => responses[model] || errors[model])
 
   // Function to start all selected models simultaneously
   const handleBeginAll = async () => {

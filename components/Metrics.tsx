@@ -1,6 +1,6 @@
 'use client'
 
-import { YStack, XStack, Text, Accordion, Square } from 'tamagui'
+import { YStack, XStack, Text, Accordion } from 'tamagui'
 
 interface MetricsData {
   cost: number | null
@@ -16,7 +16,7 @@ interface MetricsProps {
   hourlyCost?: number
 }
 
-export function Metrics({ metrics, model, isHostedOnHF = false, hourlyCost = 0 }: MetricsProps) {
+export function Metrics({ metrics, isHostedOnHF = false, hourlyCost = 0 }: MetricsProps) {
   const formatTime = (ms: number | null) => {
     if (ms === null) return '-'
     if (ms < 1000) return `${ms}ms`
