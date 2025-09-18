@@ -3,23 +3,35 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "next dev --turbopack -p 8080",
     "build": "next build --turbopack",
     "start": "next start",
     "lint": "eslint"
   },
   "dependencies": {
+    "@ai-sdk/anthropic": "^2.0.17",
+    "@ai-sdk/xai": "^2.0.20",
+    "@tamagui/config": "^1.132.24",
+    "@tamagui/core": "^1.132.24",
+    "@tamagui/lucide-icons": "^1.132.25",
+    "@tamagui/web": "^1.132.24",
+    "@upstash/redis": "^1.35.3",
+    "ai": "^5.0.45",
+    "next": "15.5.3",
     "react": "19.1.0",
     "react-dom": "19.1.0",
-    "next": "15.5.3"
+    "react-native-svg": "^15.13.0",
+    "react-native-web": "^0.21.1",
+    "tamagui": "^1.132.24",
+    "zod": "^4.1.9"
   },
   "devDependencies": {
-    "typescript": "^5",
+    "@eslint/eslintrc": "^3",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.5.3",
-    "@eslint/eslintrc": "^3"
+    "typescript": "^5"
   }
 }
