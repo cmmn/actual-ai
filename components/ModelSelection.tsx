@@ -10,14 +10,10 @@ export function ModelSelection({
   selectedModels,
   onSelectedModelsChange,
   onContinue,
-  isAvailable,
-  onUnavailable
 }: {
   selectedModels: ModelKey[]
   onSelectedModelsChange: (models: ModelKey[]) => void
   onContinue: () => void
-  isAvailable: boolean | null
-  onUnavailable: () => void
 }) {
   const media = useMedia()
 
@@ -85,10 +81,6 @@ export function ModelSelection({
         size="$5"
         theme={selectedModels.length > 0 ? "active" : undefined}
         onPress={() => {
-          if (!isAvailable) {
-            onUnavailable()
-            return
-          }
           onContinue()
         }}
         disabled={selectedModels.length === 0}
@@ -99,7 +91,7 @@ export function ModelSelection({
         cursor={selectedModels.length === 0 ? 'not-allowed' : 'pointer'}
         disabledStyle={{
           opacity: 0.5,
-          backgroundColor: '$backgroundStrong',
+          backgroundColor: '$background',
           borderColor: '$borderColor'
         }}
       >

@@ -10,13 +10,9 @@ import { modelConfigs } from 'lib'
 
 export function ModelComparison({
   selectedModels,
-  isAvailable,
-  onUnavailable,
   useCaseContent
 }: {
   selectedModels: ModelKey[]
-  isAvailable: boolean | null
-  onUnavailable: () => void
   useCaseContent: UseCaseContent | null
 }) {
   const allModelKeys = Object.keys(modelConfigs) as ModelKey[]
@@ -36,6 +32,8 @@ export function ModelComparison({
 
   // Function to start all selected models simultaneously
   const handleBeginAll = async () => {
+    console.log('handleBeginAll called, useCaseContent:',
+  useCaseContent)
     // Ensure use case content is loaded
     if (!useCaseContent) {
       return
@@ -102,12 +100,7 @@ export function ModelComparison({
   }
 
   async function handleStreamRequest(model: ModelKey) {
-    // Check if app is available before proceeding
-    if (!isAvailable) {
-      onUnavailable()
-      return
-    }
-
+    console.log('handleStreamRequest called for model:', model)
     // Reset the response for this model
     setResponses(prev => ({ ...prev, [model]: '' }))
     setErrors(prev => ({ ...prev, [model]: null }))
@@ -129,6 +122,7 @@ export function ModelComparison({
         throw new Error('Failed to load use case content')
       }
 
+      console.log('About to make fetch request to /api/v1 for model:', model)
       const res = await fetch('/api/v1', {
         method: 'POST',
         headers: {
@@ -359,7 +353,7 @@ export function ModelComparison({
             w={350}
             theme="active"
             onPress={handleBeginAll}
-            disabled={anyStreaming || !isAvailable}
+            disabled={anyStreaming}
             fontWeight="700"
             minWidth={180}
             paddingHorizontal="$6"

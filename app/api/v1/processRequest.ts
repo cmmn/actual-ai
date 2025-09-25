@@ -19,7 +19,7 @@ export async function processRequest({
       )
     }
 
-    if (!instructions && !content) {
+    if (!instructions || !content) {
       return new Response(
         JSON.stringify({ error: 'At least one of instructions or content is required' }),
         { status: 400, headers: { 'Content-Type': 'application/json' } }

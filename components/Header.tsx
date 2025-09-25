@@ -1,31 +1,28 @@
 import { Button, Text, XStack, YStack } from 'tamagui'
-import { useRouter } from 'next/navigation'
 import { IconComp } from './IconComp'
 import { UseCaseSheet } from './UseCaseSheet'
-import { UseCase } from 'app/types'
+import { ControllerStep, UseCase } from 'types'
 
 export function Header({ 
   currentUseCase,
   setShowUseCaseSheet,
   showUseCaseSheet,
-  handleUseCaseSelect
+  handleUseCaseSelect,
+  setCurrentStep
 }: { 
   currentUseCase: UseCase;
   setShowUseCaseSheet: (open: boolean) => void;
   showUseCaseSheet: boolean;
   handleUseCaseSelect: (useCase: UseCase) => void;
+  setCurrentStep: (step: ControllerStep) => void;
 }) {
-  const router = useRouter()
-
-  console.log('Current Use Case in Header:', currentUseCase);
-
   return (
     <>
     <XStack jc='space-between' ai='center' mb={10} px={20} py={10}>
       <Button
         size="$3"
         theme="alt2"
-        onPress={() => router.push('/')}
+        onPress={() => setCurrentStep('selection')}
         fontWeight="600"
       >
         <XStack ai="center" gap="$2">

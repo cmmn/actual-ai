@@ -1,7 +1,7 @@
 import { UseCase, UseCaseContent, ControllerStep } from "types";
 import { Header } from "./Header";
 import { ModelController } from "./ModelController";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useCases } from "lib/useCases";
 
 export function Controller() {
@@ -10,6 +10,10 @@ export function Controller() {
   const [useCaseContent, setUseCaseContent] = useState<UseCaseContent | null>(null);
   const [currentStep, setCurrentStep] = useState<ControllerStep>('selection');
 
+  // Load default use case content on mount
+  useEffect(() => {
+    loadUseCaseContent(currentUseCase)
+  }, [currentUseCase]) // Re-run when currentUseCase changes
 
   // Load use case content from files
   const loadUseCaseContent = async (useCase: UseCase) => {
@@ -44,6 +48,7 @@ export function Controller() {
         showUseCaseSheet={showUseCaseSheet}
         handleUseCaseSelect={handleUseCaseSelect}
         setShowUseCaseSheet={setShowUseCaseSheet}
+        setCurrentStep={setCurrentStep}
       />
       <ModelController
         useCaseContent={useCaseContent}

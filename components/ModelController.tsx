@@ -20,12 +20,6 @@ export function ModelController({
   setCurrentStep: (step: ControllerStep) => void
 }) {
   const [selectedModels, setSelectedModels] = useState<ModelKey[]>([])
-  const [isAvailable, setIsAvailable] = useState<boolean | null>(null)
-  
-  const onUnavailable = () => {
-    setIsAvailable(false)
-    setTimeout(() => setIsAvailable(null), 3000)
-  }
 
   const handleContinue = () => {
     if (selectedModels.length > 0) {
@@ -42,16 +36,12 @@ export function ModelController({
           selectedModels={selectedModels}
           onSelectedModelsChange={setSelectedModels}
           onContinue={handleContinue}
-          isAvailable={isAvailable}
-          onUnavailable={onUnavailable}
         />
       )}
 
       {currentStep === 'comparison' && (
         <ModelComparison
           selectedModels={selectedModels}
-          isAvailable={isAvailable}
-          onUnavailable={onUnavailable}
           useCaseContent={useCaseContent}
         />
       )}
