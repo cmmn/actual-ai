@@ -1,7 +1,8 @@
 'use client'
 
 import { Sheet, YStack, XStack, Text, Button, H2, SizableText } from 'tamagui'
-import { useCases, UseCase, categories } from '../lib/useCases'
+import { useCases, categories } from 'lib'
+import { UseCase } from 'types'
 import { useState } from 'react'
 
 interface UseCaseSheetProps {
