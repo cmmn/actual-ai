@@ -42,11 +42,11 @@ export function ComingSoon({
           maxWidth={500}
         >
           <Dialog.Title size="$6" color="$color">
-            Coming soon!
+            Download the binary from GitHub and add your ENV variables for AI Models to compare them side by side.
           </Dialog.Title>
 
           <Dialog.Description size="$4" color="$color075" lineHeight="$2">
-            This application has not been released yet. Please check back in a few days to see if the status has been updated.
+            {`This application has not been released yet. If I see traffic to the open source project pick up, I'll step up dev on the commercial version.`}
           </Dialog.Description>
 
           <YStack gap="$2">
