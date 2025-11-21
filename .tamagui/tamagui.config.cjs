@@ -35,8 +35,8 @@ __export(tamagui_config_exports, {
 module.exports = __toCommonJS(tamagui_config_exports);
 
 // node_modules/@tamagui/constants/dist/esm/constants.mjs
-var import_react = require("react");
-var import_react2 = require("react");
+var import_react = __toESM(require("react"), 1);
+var IS_REACT_19 = typeof import_react.default.use < "u";
 var isWeb = true;
 var isWindowDefined = typeof window < "u";
 var isServer = isWeb && !isWindowDefined;
@@ -47,11 +47,11 @@ var isWebTouchable = isClient && ("ontouchstart" in window || navigator.maxTouch
 var isIos = process.env.TEST_NATIVE_PLATFORM === "ios";
 
 // node_modules/@tamagui/use-presence/dist/esm/PresenceContext.mjs
-var React = __toESM(require("react"), 1);
+var React2 = __toESM(require("react"), 1);
 var import_jsx_runtime = require("react/jsx-runtime");
-var PresenceContext = React.createContext(null);
+var PresenceContext = React2.createContext(null);
 var ResetPresence = /* @__PURE__ */ __name((props) => {
-  const parent = React.useContext(PresenceContext);
+  const parent = React2.useContext(PresenceContext);
   return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(PresenceContext.Provider, {
     value: props.disable ? parent : null,
     children: props.children
@@ -59,9 +59,9 @@ var ResetPresence = /* @__PURE__ */ __name((props) => {
 }, "ResetPresence");
 
 // node_modules/@tamagui/use-presence/dist/esm/usePresence.mjs
-var React2 = __toESM(require("react"), 1);
+var React3 = __toESM(require("react"), 1);
 function usePresence() {
-  const context = React2.useContext(PresenceContext);
+  const context = React3.useContext(PresenceContext);
   if (!context) return [true, null, context];
   const {
     id,
@@ -69,7 +69,7 @@ function usePresence() {
     onExitComplete,
     register
   } = context;
-  return React2.useEffect(() => register(id), []), !isPresent2 && onExitComplete ? [false, () => onExitComplete?.(id), context] : [true, void 0, context];
+  return React3.useEffect(() => register(id), []), !isPresent2 && onExitComplete ? [false, () => onExitComplete?.(id), context] : [true, void 0, context];
 }
 __name(usePresence, "usePresence");
 
@@ -669,6 +669,7 @@ var ThemeBuilder = class {
   constructor(state) {
     this.state = state;
   }
+  _getThemeFn;
   addPalettes(palettes) {
     return this.state.palettes = {
       // as {} prevents generic string key merge messing up types
@@ -726,6 +727,9 @@ var ThemeBuilder = class {
     };
     return this.state.themes = next, this;
   }
+  getTheme(fn) {
+    return this._getThemeFn = fn, this;
+  }
   build() {
     if (!this.state.themes) return {};
     const out = {}, maskedThemes = [];
@@ -765,7 +769,17 @@ var ThemeBuilder = class {
         if (!template) throw new Error(`No template for theme ${themeName}: ${templateName} in templates:
 - ${Object.keys(this.state.templates || {}).join(`
  - `)}`);
-        out[themeName] = createThemeWithPalettes(this.state.palettes, paletteName, template, options, themeName, true);
+        const theme = createThemeWithPalettes(this.state.palettes, paletteName, template, options, themeName, true);
+        out[themeName] = this._getThemeFn ? this._getThemeFn({
+          theme,
+          name: themeName,
+          level: nameParts.length,
+          parentName,
+          scheme: /^(light|dark)$/.test(nameParts[0]) ? nameParts[0] : void 0,
+          parentNames: nameParts.slice(0, -1),
+          palette,
+          template
+        }) : theme;
       }
     }
     for (const {
@@ -1661,7 +1675,7 @@ var defaultPalettes2 = (() => {
   }, "getColorPalette"), brandColor = {
     light: color.blue4Light,
     dark: color.blue4Dark
-  }, lightPalette = [brandColor.light, color.white0, color.white025, color.white05, color.white075, color.white1, color.white2, color.white3, color.white4, color.white5, color.white6, color.white7, color.white8, color.white9, color.white10, color.white11, color.white12, color.black075, color.black05, color.black025, color.black0, brandColor.dark], darkPalette = [brandColor.dark, color.black0, color.black025, color.black05, color.black075, color.black1, color.black2, color.black3, color.black4, color.black5, color.black6, color.black7, color.black8, color.black9, color.black10, color.black11, color.black12, color.white075, color.white05, color.white025, color.white0, brandColor.light], lightColorNames = objectKeys2(colorTokens.light), lightPalettes = objectFromEntries(lightColorNames.map((key, index) => [`light_${key}`, getColorPalette(colorTokens.light[key], colorTokens.light[lightColorNames[(index + 1) % lightColorNames.length]])])), darkColorNames = objectKeys2(colorTokens.dark), darkPalettes = objectFromEntries(darkColorNames.map((key, index) => [`dark_${key}`, getColorPalette(colorTokens.dark[key], colorTokens.light[darkColorNames[(index + 1) % darkColorNames.length]])])), colorPalettes = {
+  }, lightPalette = [brandColor.light, color.white0, color.white025, color.white05, color.white075, color.white1, color.white2, color.white3, color.white4, color.white5, color.white6, color.white7, color.white8, color.white9, color.white10, color.white11, color.white12, color.black075, color.black05, color.black025, color.black0, brandColor.dark], darkPalette = [brandColor.dark, color.black0, color.black025, color.black05, color.black075, color.black1, color.black2, color.black3, color.black4, color.black5, color.black6, color.black7, color.black8, color.black9, color.black10, color.black11, color.black12, color.white075, color.white05, color.white025, color.white0, brandColor.light], lightColorNames = objectKeys2(colorTokens.light), lightPalettes = objectFromEntries(lightColorNames.map((key, index) => [`light_${key}`, getColorPalette(colorTokens.light[key], colorTokens.light[lightColorNames[(index + 1) % lightColorNames.length]])])), darkColorNames = objectKeys2(colorTokens.dark), darkPalettes = objectFromEntries(darkColorNames.map((key, index) => [`dark_${key}`, getColorPalette(colorTokens.dark[key], colorTokens.dark[darkColorNames[(index + 1) % darkColorNames.length]])])), colorPalettes = {
     ...lightPalettes,
     ...darkPalettes
   };
@@ -1983,7 +1997,7 @@ var tokens2 = (0, import_web.createTokens)({
 
 // node_modules/@tamagui/animations-css/dist/esm/createAnimations.mjs
 var import_web2 = require("@tamagui/core");
-var import_react3 = __toESM(require("react"), 1);
+var import_react2 = __toESM(require("react"), 1);
 function extractDuration(animation) {
   const msMatch = animation.match(/(\d+(?:\.\d+)?)\s*ms/);
   if (msMatch) return Number.parseInt(msMatch[1], 10);
@@ -1999,7 +2013,7 @@ function createAnimations(animations) {
     ResetPresence,
     supportsCSS: true,
     useAnimatedNumber(initial) {
-      const [val, setVal] = import_react3.default.useState(initial), [onFinish, setOnFinish] = (0, import_react3.useState)();
+      const [val, setVal] = import_react2.default.useState(initial), [onFinish, setOnFinish] = (0, import_react2.useState)();
       return useIsomorphicLayoutEffect(() => {
         onFinish && (onFinish?.(), setOnFinish(void 0));
       }, [onFinish]), {
@@ -2019,7 +2033,7 @@ function createAnimations(animations) {
     useAnimatedNumberReaction({
       value
     }, onValue) {
-      import_react3.default.useEffect(() => {
+      import_react2.default.useEffect(() => {
         const instance = value.getInstance();
         let queue = reactionListeners.get(instance);
         if (!queue) {

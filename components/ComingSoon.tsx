@@ -1,6 +1,6 @@
 'use client'
 
-import { Dialog, YStack, Text, Button } from 'tamagui'
+import { Dialog, YStack, Text, Button, Anchor } from 'tamagui'
 
 export function ComingSoon({
   showUnavailableModal,
@@ -42,12 +42,31 @@ export function ComingSoon({
           maxWidth={500}
         >
           <Dialog.Title size="$6" color="$color">
-            Download the binary from GitHub and add your ENV variables for AI Models to compare them side by side.
+            Coming Soon!
           </Dialog.Title>
 
           <Dialog.Description size="$4" color="$color075" lineHeight="$2">
-            {`This application has not been released yet. If I see traffic to the open source project pick up, I'll step up dev on the commercial version.`}
+            {`This application has not been released.`}
           </Dialog.Description>
+
+          <Dialog.Description size="$4" color="$color075" lineHeight="$2">
+            {`Download the binary from GitHub and add your ENV variables for AI Models to compare them side by side.`}
+          </Dialog.Description>
+
+          <Anchor 
+            href="https://github.com/cmmn/ai-combinator" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            fontSize="$4" 
+            color="$color"
+            bg="$color6"
+            py="$3"
+            borderRadius="$3"
+            hoverStyle={{ bg: '$color4' }}
+            textAlign="center"
+          >
+            Clone on GitHub
+          </Anchor>
 
           <YStack gap="$2">
             <Text color="$color075" fontSize="$3">

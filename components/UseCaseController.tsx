@@ -1,8 +1,7 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { YStack } from 'tamagui'
-import { UseCase, useCases } from '../lib/useCases'
+import { useState } from 'react'
+import { UseCase } from 'types'
 import { UseCaseSelection } from './UseCaseSelection'
 
 interface UseCaseControllerProps {
@@ -97,8 +96,6 @@ export function UseCaseController({ onContinue, onBack, isAvailable, onUnavailab
       onCategoryChange={setSelectedCategory}
       onContinue={handleContinue}
       onBack={onBack}
-      isAvailable={isAvailable}
-      onUnavailable={onUnavailable}
     />
   )
 }

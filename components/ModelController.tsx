@@ -5,6 +5,9 @@ import { YStack } from 'tamagui'
 import { ModelSelection } from './ModelSelection'
 import { ModelComparison } from './ModelComparison'
 import { UseCaseContent } from 'types'
+import { ComingSoon } from './ComingSoon'
+
+const IS_LIVE = false
 
 type ModelKey = 'claude-sonnet-4' | 'claude-3-5-haiku' | 'grok-2' | 'grok-3' | 'grok-4' | 'mixtral-8x7b-instruct-v0-1' | 'gpt-4o' | 'gpt-4o-mini' | 'gpt-4-turbo' | 'gpt-5' | 'gpt-5-mini' | 'gpt-5-nano'
 
@@ -20,10 +23,15 @@ export function ModelController({
   setCurrentStep: (step: ControllerStep) => void
 }) {
   const [selectedModels, setSelectedModels] = useState<ModelKey[]>([])
+  const [showComingSoonAlert, setShowComingSoonAlert] = useState<boolean>(false)
 
   const handleContinue = () => {
-    if (selectedModels.length > 0) {
+
+    if (selectedModels.length > 0 && IS_LIVE) {
       setCurrentStep('comparison')
+    } else { 
+      // trigger coming soon alert
+      setShowComingSoonAlert(true)
     }
   }
 
@@ -43,6 +51,13 @@ export function ModelController({
         <ModelComparison
           selectedModels={selectedModels}
           useCaseContent={useCaseContent}
+        />
+      )}
+
+      {showComingSoonAlert && (
+        <ComingSoon
+          showUnavailableModal={showComingSoonAlert}
+          setShowUnavailableModal={setShowComingSoonAlert}
         />
       )}
     </YStack>
